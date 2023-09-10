@@ -1,0 +1,18 @@
+<template>
+    <lightning-layout>
+        <div>
+            <ul>
+                <template for:each={contacts} for:item='singlecon'>
+                    <li key={singlecon.Id}>
+                    <p> {singlecon.Id}</p>
+                    <p> {singlecon.Name}</p>
+                    <p> {singlecon.Title}</p>
+                    </li>
+
+                </template>
+            </ul>
+        
+        </div>
+    </lightning-layout>
+    
+</template>
