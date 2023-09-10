@@ -1,4 +1,7 @@
 <template>
+
+   <lightning-card>
+      <div class="rainbow">
    <lightning-record-edit-form object-api-name="Account" onsuccess={successHandler} >
 
       <lightning-input-field field-name="Name"></lightning-input-field>
@@ -10,6 +13,12 @@
 
       <lightning-button type="submit" label="Create Account"></lightning-button>
 
-   </lightning-record-edit-form>
+      </lightning-record-edit-form>
      <div style=color:blue> <b>{successMessage}</b></div>
+         
+      </div>
+  
+      
+   </lightning-card>
+   
 </template>

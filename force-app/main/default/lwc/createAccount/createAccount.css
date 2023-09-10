@@ -1,0 +1,12 @@
+.rainbow{
+    background-color: aquamarine;
+    color:blueviolet;
+    font-size: larger;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 40px;padding: 20px;
+    border: 10px;
+    border-color: color-mix(in hsl shorter hue, color percentage, color percentage);
+    border-style: solid;
+    border-radius: 10px;
+
+}
