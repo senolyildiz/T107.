@@ -1,0 +1,20 @@
+<!-- contactUserLookup.html -->
+<template>
+    <div>
+        <lightning-card title="User Information" icon-name="standard:user">
+            <template if:true={userInfo}>
+                <div class="slds-p-around_medium">
+                    <template if:true={userInfo.user}>
+                        <p><strong>Name:</strong> {userInfo.user.Name}</p>
+                        <p><strong>Email:</strong> {userInfo.user.Email}</p>
+                        
+                    </template>
+                    <template if:true={userInfo.message}>
+                        <p>{userInfo.message}</p>
+                    </template>
+                </div>
+            </template>
+        </lightning-card>
+    </div>
+</template>
+
