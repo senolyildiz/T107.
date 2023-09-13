@@ -1,59 +1,41 @@
 public with sharing class ContactUserController {
-    public class UserWrapper {
-        @AuraEnabled
-        public User user { get; set; }
-        @AuraEnabled
-        public String message { get; set; }
-        @AuraEnabled
-        public List<Contact> cntList{get; set;}
-    }
+
+
 
     @AuraEnabled(cacheable=true)
-    public static UserWrapper getUserInfoByEmail(String contactId) {
+    public static UserContactWrapper getUserInfoByEmail(String contactId) {
+       
+        Contact cnt = [SELECT Name, Email, Id FROM Contact  WHERE id =: contactId LIMIT 1] ;
+        List<User> userlist = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: cnt.Email];
+               list<UserWrapper> wrapperlist= new list<UserWrapper>();
 
-        list<Contact> cntlist = [SELECT Name, Email, Id FROM Contact ] ;
-        for (Contact con: conlist){
             if(con.Email!=null){
-                List<User> user = [SELECT Id, Username, LastName, FirstName, Email, ContactId FROM User WHERE ContactId =: con.Id];
+              for(User user: userlist) {
+                UserWrapper wrapper= new UserWrapper();
+                wrapper.lastName=user.LastName;
+                wrapper.FirstName=user.FirstName;
+                wrapper.Email=user.Email;
+                wrapper.Id =user.Id;
+               wrapperlist.add(wrapper);
+              }
 
-            }
-        
-       
-       
+            UserContactWrapper usercon = new UserWrapper();
+            usercon.userinfo= user;
             
+            }
+            return wrapperlist;
         }
-        UserWrapper result = new UserWrapper();
-        Contact contact = [SELECT Email FROM Contact WHERE Id = :contactId LIMIT 1];
-        
-        if (contact != null && !String.isBlank(contact.Email)) {
-            result.user = [SELECT Id, Name, Email FROM User WHERE Email = :contact.Email LIMIT 1];
-        } else {
-            result.message = 'Contact does not have an email address.';
-        }
-        return result;
-    }
-}
+      
+       
+  
 
-public with sharing class CurrentUserandContactController {
-    @AuraEnabled(Cacheable=true)
-    public static WClass theMethod(){
+public class UserWrapper {
+    @AuraEnabled public string userinfo { get; set; }
+    @AuraEnabled public String message { get; set; }
+    @AuraEnabled public String LastName { get; set; }
+    @AuraEnabled public String Email { get; set; }
+    @AuraEnabled public String FirstName{ get; set; }
+    @AuraEnabled public String UserName { get; set; }
+    @AuraEnabled public String Id { get; set; }
 
-        list<Contact> c = [SELECT Name, Id FROM Contact ;
-        List<User> u = [SELECT Id, Username, LastName, FirstName, Email, ContactId FROM User WHERE ContactId =: c.Id];
-        WClass gudObj =  new WClass(u[0].Account.Name, c[0].Name);
-        return gudObj;
-
-    }
-
-    public class WClass {
-        @AuraEnabled
-        public String usr{get; set;}
-        @AuraEnabled
-        public String ctct{get; set;}
-
-        public WClass(String u, String ctct){
-            this.usr = u;
-            this.ctct = ctct;
-        }
-    }
-}
+}}

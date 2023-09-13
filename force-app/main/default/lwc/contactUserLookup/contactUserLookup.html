@@ -1,12 +1,12 @@
 <!-- contactUserLookup.html -->
 <template>
     <div>
-        <lightning-card title="User Information" icon-name="standard:user">
+        <lightning-card title="User Information">
             <template if:true={userInfo}>
-                <div class="slds-p-around_medium">
+                <div>
                     <template if:true={userInfo.user}>
-                        <p><strong>Name:</strong> {userInfo.user.Name}</p>
-                        <p><strong>Email:</strong> {userInfo.user.Email}</p>
+                        <p>Name:{userInfo.user.Name}</p>
+                        <p>Email: {userInfo.user.Email}</p>
                         
                     </template>
                     <template if:true={userInfo.message}>

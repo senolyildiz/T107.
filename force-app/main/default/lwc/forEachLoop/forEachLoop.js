@@ -11,9 +11,7 @@ export default class ForEachLoop extends LightningElement {
      Title:'Android Developer'},
      {Id:3,
     Name: 'Asli Yildiz',
-    Title:'Java Developer'},
-    {Id:4,
-    Name: 'Nurten Yildiz',
-    Title:'Yuvayi yapan'}
+    Title:'Java Developer'}
+    
     ]
 }
