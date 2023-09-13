@@ -5,37 +5,24 @@ public with sharing class ContactUserController {
     @AuraEnabled(cacheable=true)
     public static UserContactWrapper getUserInfoByEmail(String contactId) {
        
-        Contact cnt = [SELECT Name, Email, Id FROM Contact  WHERE id =: contactId LIMIT 1] ;
-        List<User> userlist = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: cnt.Email];
-               list<UserWrapper> wrapperlist= new list<UserWrapper>();
-
-            if(con.Email!=null){
-              for(User user: userlist) {
-                UserWrapper wrapper= new UserWrapper();
+        Contact contact = [SELECT Name, Email, Id FROM Contact  WHERE id =: contactId AND Email !=Null LIMIT 1] ;
+        if(contact !=Null) {
+          User user = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: cnt.Email LIMIT 1];
+          if(user !=Null){
+            UserWrapper wrapper= new UserWrapper();
                 wrapper.lastName=user.LastName;
-                wrapper.FirstName=user.FirstName;
-                wrapper.Email=user.Email;
-                wrapper.Id =user.Id;
-               wrapperlist.add(wrapper);
-              }
-
-            UserContactWrapper usercon = new UserWrapper();
-            usercon.userinfo= user;
-            
-            }
-            return wrapperlist;
-        }
-      
-       
-  
-
+                wrapper.firstName=user.FirstName;
+                wrapper.email=user.Email;
+                wrapper.userId =user.Id;
+                wrapper.username =user.username;
+                return wrapper;
+          }
+        }}
 public class UserWrapper {
-    @AuraEnabled public string userinfo { get; set; }
-    @AuraEnabled public String message { get; set; }
-    @AuraEnabled public String LastName { get; set; }
-    @AuraEnabled public String Email { get; set; }
-    @AuraEnabled public String FirstName{ get; set; }
-    @AuraEnabled public String UserName { get; set; }
-    @AuraEnabled public String Id { get; set; }
+    @AuraEnabled public String lastName { get; set; }
+    @AuraEnabled public String email { get; set; }
+    @AuraEnabled public String firstName{ get; set; }
+    @AuraEnabled public String username { get; set; }
+    @AuraEnabled public String userId { get; set; }
 
 }}
