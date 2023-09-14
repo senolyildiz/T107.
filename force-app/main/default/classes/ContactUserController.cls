@@ -3,11 +3,11 @@ public with sharing class ContactUserController {
 
 
     @AuraEnabled(cacheable=true)
-    public static UserContactWrapper getUserInfoByEmail(String contactId) {
+    public static UserWrapper getUserInfoByEmail(String contactId) {
        try{
         Contact contact = [SELECT Name, Email, Id FROM Contact  WHERE id =: contactId AND Email !=Null LIMIT 1] ;
         if(contact !=Null) {
-          User user = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: cnt.Email LIMIT 1];
+          User user = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: contact.Email LIMIT 1];
           if(user !=Null){
             UserWrapper wrapper= new UserWrapper();
                 wrapper.lastName=user.LastName;
