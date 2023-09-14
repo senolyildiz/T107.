@@ -1,7 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 import getUserInfoByEmail from '@salesforce/apex/ContactUserController.getUserInfoByEmail';
 
-export default class ContactUserLookup extends LightningElement {
+export default class ContactUser extends LightningElement {
     @api recordId;
     @api userFound=false;
     @api userNotFound=false;
