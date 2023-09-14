@@ -4,7 +4,7 @@ public with sharing class ContactUserController {
 
     @AuraEnabled(cacheable=true)
     public static UserContactWrapper getUserInfoByEmail(String contactId) {
-       
+       try{
         Contact contact = [SELECT Name, Email, Id FROM Contact  WHERE id =: contactId AND Email !=Null LIMIT 1] ;
         if(contact !=Null) {
           User user = [SELECT Id, Username, LastName, FirstName, Email FROM User WHERE Email =: cnt.Email LIMIT 1];
@@ -17,7 +17,13 @@ public with sharing class ContactUserController {
                 wrapper.username =user.username;
                 return wrapper;
           }
-        }}
+       }
+      }catch(Exception e){
+
+       system.debug('Error: ' + e.getMessage());
+        }
+        return Null;
+      }
 public class UserWrapper {
     @AuraEnabled public String lastName { get; set; }
     @AuraEnabled public String email { get; set; }
