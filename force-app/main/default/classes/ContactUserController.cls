@@ -1,7 +1,5 @@
 public with sharing class ContactUserController {
 
-
-
     @AuraEnabled(cacheable=true)
     public static UserWrapper getUserInfoByEmail(String contactId) {
        try{
