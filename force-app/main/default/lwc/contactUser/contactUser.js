@@ -7,7 +7,6 @@ export default class ContactUser extends LightningElement {
     @api userNotFound=false;
     @api contactHasNoEmail=false;
     @api userInfo;
-
     
 
     @wire(getUserInfoByEmail, { contactId: '$recordId' })
